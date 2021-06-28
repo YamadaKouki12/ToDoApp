@@ -1,22 +1,39 @@
 package jp.kobespiral.yamadakouki.todo.controller;
 
+import java.util.List; 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import jp.kobespiral.yamadakouki.todo.dto.MemberForm;
+import jp.kobespiral.yamadakouki.todo.dto.ToDoForm;
+import jp.kobespiral.yamadakouki.todo.entity.Member;
+import jp.kobespiral.yamadakouki.todo.service.MemberService;
+import jp.kobespiral.yamadakouki.todo.service.ToDoService;
+
 
 @Controller
-@RequestMapping("/member")
+// @RequestMapping("/member")
 public class ToDoController {
     @Autowired
     ToDoService tService;
+    @Autowired
+    MemberService mService;
     /**
      * ToDoサービスへのログイン HTTP-GET /member/login
      * @param 
      * @return
      */
-    @GetMapping("/login")
-    String todoLogin(){
-        model.addAttribute();
-        return "login";
+    @PostMapping("/login")
+    String todoLogin(String mid){
+        mService.getMember(mid);
+        return "redirect:/" + mid + "/todos";
     }
     /**
      * ユーザー用・ToDo確認
@@ -25,8 +42,8 @@ public class ToDoController {
      * @return
      */
     @GetMapping("/{mid}/todos")
-    Strign seeTodos(@PathVariable String user, Model model) {
-
+    String seeTodos(Model model) {
+        return "list";
     }
     /**
     * ユーザ用・ToDoリストを表示 HTTP-POST /{mid}/todo/check

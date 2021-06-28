@@ -8,6 +8,7 @@ import jp.kobespiral.yamadakouki.todo.repository.ToDoRepository;
 import jp.kobespiral.yamadakouki.todo.entity.ToDo;
 import jp.kobespiral.yamadakouki.todo.exception.ToDoAppException;
 
+@Service
 public class ToDoService {
     @Autowired
     ToDoRepository tRepo;
