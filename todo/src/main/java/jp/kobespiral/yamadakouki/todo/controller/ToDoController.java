@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.kobespiral.yamadakouki.todo.dto.MemberForm;
 import jp.kobespiral.yamadakouki.todo.dto.ToDoForm;
 import jp.kobespiral.yamadakouki.todo.entity.Member;
+import jp.kobespiral.yamadakouki.todo.entity.ToDo;
 import jp.kobespiral.yamadakouki.todo.service.MemberService;
 import jp.kobespiral.yamadakouki.todo.service.ToDoService;
 
@@ -31,8 +32,12 @@ public class ToDoController {
      * @return
      */
     @PostMapping("/login")
-    String todoLogin(String mid){
-        mService.getMember(mid);
+    String todoLogin(String mid,Model model){
+        Member m = mService.getMember(mid);
+        List<ToDo> list=tService.getToDoList(mid);
+        model.addAttribute("ToDoList", list);
+        model.addAttribute("name", m.getName());
+        // model.addAttribute("name","aiueo");
         return "redirect:/" + mid + "/todos";
     }
     /**
