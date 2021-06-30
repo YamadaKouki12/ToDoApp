@@ -6,12 +6,45 @@
     <title>ToDoリスト確認</title>
 </head>
 
-<html>
-    <head>
+<body>
+    <h1>[[${m.name}]]のToDo</h1>
+    <h2>ToDo</h2>
+    <table border="1">
+        <tr>
+            <th>seq</th>
+            <th>title</th>
+            <th>createdAt</th>
+            <th>コマンド</th>
+        </tr>
+        <tr th:each="l: ${list}">
+            <td>[[${l.seq}]]</td>
+            <td>[[${l.title}]]</td>
+            <td>[[${l.createdAt]]</td>
+            <td><a th:href=@{/member/{m}(m=${m.mid})/makedone}>Done</a></td>
+        </tr>
+    </table>
 
-    </head>
-    <body>
-       <h1>[[${name}]]</h1>
-       kakikukeko
-    </body>
-</html>
+    <h2>Done</h2>
+    <table border="1">
+        <tr>
+            <th>seq</th>
+            <th>title</th>
+            <th>donedAt</th>
+        </tr>
+        <tr th:each="l: ${list}">
+            <td>[[${l.seq}]]</td>
+            <td>[[${l.title}]]</td>
+            <td>[[${l.doneAt]]</td>
+        </tr>
+    </table>
+    <h2>登録</h2>
+    <form role="form" th:action="@{/member/{mid}/todocheck}" th:object="${ToDoForm}" method="post">
+        <tr>
+            <td><label>ToDo:</label></td>
+            <td><input type="text" required th:field="*{title}" /></td>
+        </tr>
+        <p><input type="submit" value="登録"></p>
+    </form>
+    <h2>みんなのTODO</h2>
+    <a th:href=@{/member/alllist}>みんなのToDoを確認する</a>
+</body>

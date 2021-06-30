@@ -17,10 +17,14 @@ public class ToDoService {
      * @param form
      * @return
      */
-    public ToDo createToDo(String mid, ToDoForm form) {
+    // public ToDo createToDo(String mid, ToDoForm form) {
+    //     ToDo t = form.toEntity();
+    //     t.setMid(mid);
+    //     t.setDone(false);
+    //     return tRepo.save(t);
+    // }
+    public ToDo createToDo(ToDoForm form) {
         ToDo t = form.toEntity();
-        t.setMid(mid);
-        t.setDone(false);
         return tRepo.save(t);
     }
 
