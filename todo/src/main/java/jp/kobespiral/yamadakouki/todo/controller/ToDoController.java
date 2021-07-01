@@ -52,15 +52,12 @@ public class ToDoController {
     String seeTodos(@PathVariable String mid, Model model) {
         ToDoForm form = new ToDoForm();
         Member m = mService.getMember(mid);
-        List<ToDo> list=tService.getToDoList(mid);
+        List<ToDo> todolist=tService.getToDoList();
+        List<ToDo> donelist=tService.getDoneList();
 
-        List<ToDo> donelist=tService.getToDoList();
-        List<ToDo> undonelist=tService.getDoneList();
-
+        model.addAttribute("todolist", todolist);
         model.addAttribute("donelist", donelist);
-        model.addAttribute("undonelist", undonelist);
         model.addAttribute("mid", mid);
-        model.addAttribute("list", list);
         model.addAttribute("m",m);
         model.addAttribute("ToDoForm",form);
         return "list";
@@ -85,28 +82,11 @@ public class ToDoController {
     */
     @GetMapping("/member/alllist") 
     String seeAllTodos(Model model) {
-        List<ToDo> donelist=tService.getToDoList();
-        List<ToDo> undonelist=tService.getDoneList();
+        List<ToDo> todolist=tService.getToDoList();
+        List<ToDo> donelist=tService.getDoneList();
+        model.addAttribute("todolist", todolist);
         model.addAttribute("donelist", donelist);
-        model.addAttribute("undonelist", undonelist);
         return "alllist";
-    }
-    
-    /**
-    * ユーザ用・ToDoをdoneにする HTTP-Get /member/{mid}/makedone
-    * @param form
-    * @param model
-    * @return
-    */
-    @GetMapping("/member/{mid}/makedone") 
-    String makeDone(@PathVariable String mid,@ModelAttribute(name = "ToDoForm") ToDoForm form,Model model) {
-        // List<ToDo> donelist=tService.getToDoList();
-        // List<ToDo> undonelist=tService.getDoneList();
-        // model.addAttribute("donelist", donelist);
-        // model.addAttribute("undonelist", undonelist);
-        // return checkUserToDo(null, null, model);
-        
-        return "redirect:/member/"+mid+"/todos";
     }
 
     /**
@@ -118,6 +98,20 @@ public class ToDoController {
     @PostMapping("/member/{mid}/todos")
     String todoCheck(@PathVariable String mid,@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
         tService.createToDo(mid,form);
+        return "redirect:/member/"+mid+"/todos";
+    }
+
+    /**
+    * ユーザ用・ToDoをdoneにする HTTP-Get /member/{mid}/makedone
+    * @param form
+    * @param model
+    * @return
+    */
+    @PostMapping("/member/{mid}/makedone/{seq}") 
+    String makeDone(@PathVariable String mid,@PathVariable Long seq,@ModelAttribute(name = "ToDoForm") ToDoForm form,Model model) {
+        // Todoを完了させる
+        ToDo t  = tService.getToDo(seq);
+        t.setDone(true);
         return "redirect:/member/"+mid+"/todos";
     }
 

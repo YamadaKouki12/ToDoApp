@@ -15,7 +15,7 @@
             <th>user</th>
             <th>createdAt</th>
         </tr>
-        <tr th:each="l: ${donelist}">
+        <tr th:each="l: ${todolist}">
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
             <td>[[${l.mid}]]</td>
@@ -31,7 +31,7 @@
             <th>user</th>
             <th>donedAt</th>
         </tr>
-        <tr th:each="l: ${undonelist}">
+        <tr th:each="l: ${donelist}">
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
             <td>[[${l.mid}]]</td>
