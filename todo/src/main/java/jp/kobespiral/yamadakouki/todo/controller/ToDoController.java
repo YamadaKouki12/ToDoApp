@@ -52,8 +52,8 @@ public class ToDoController {
     String seeTodos(@PathVariable String mid, Model model) {
         ToDoForm form = new ToDoForm();
         Member m = mService.getMember(mid);
-        List<ToDo> todolist=tService.getToDoList();
-        List<ToDo> donelist=tService.getDoneList();
+        List<ToDo> todolist=tService.getToDoList(mid);
+        List<ToDo> donelist=tService.getDoneList(mid);
         model.addAttribute("todolist", todolist);
         model.addAttribute("donelist", donelist);
         model.addAttribute("mid", mid);
