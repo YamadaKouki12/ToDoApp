@@ -54,7 +54,6 @@ public class ToDoController {
         Member m = mService.getMember(mid);
         List<ToDo> todolist=tService.getToDoList();
         List<ToDo> donelist=tService.getDoneList();
-
         model.addAttribute("todolist", todolist);
         model.addAttribute("donelist", donelist);
         model.addAttribute("mid", mid);
@@ -107,11 +106,13 @@ public class ToDoController {
     * @param model
     * @return
     */
-    @PostMapping("/member/{mid}/makedone/{seq}") 
+    @GetMapping("/member/{mid}/makedone/{seq}") 
     String makeDone(@PathVariable String mid,@PathVariable Long seq,@ModelAttribute(name = "ToDoForm") ToDoForm form,Model model) {
         // Todoを完了させる
-        ToDo t  = tService.getToDo(seq);
-        t.setDone(true);
+        // ToDo t = tService.getToDo(seq);
+        tService.setDone(seq);
+        // tService.createDone(mid, form);
+        // tService.deleteToDo(seq);
         return "redirect:/member/"+mid+"/todos";
     }
 

@@ -20,7 +20,7 @@
             <td>[[${tl.seq}]]</td>
             <td>[[${tl.title}]]</td>
             <td>[[${tl.createdAt}]]</td>
-            <td><a th:href=@{/member/{m}/makedone/{s}(m=${m.mid})(s=${tl.seq})}>Done</a></td>
+            <td><a th:href=@{/member/{m}/makedone/{s}(m=${mid},s=${tl.seq})}>Done</a></td>
         </tr>
     </table>
 
