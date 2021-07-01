@@ -19,7 +19,7 @@
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
             <td>[[${l.mid}]]</td>
-            <td>[[${l.createdAt]]</td>
+            <td>[[${l.createdAt}]]</td>
         </tr>
     </table>
     <br>
@@ -31,11 +31,11 @@
             <th>user</th>
             <th>donedAt</th>
         </tr>
-        <tr th:each="l: ${list}">
+        <tr th:each="l: ${undonelist}">
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
             <td>[[${l.mid}]]</td>
-            <td>[[${l.createdAt]]</td>
+            <td>[[${l.doneAt}]]</td>
         </tr>
     </table>
     <br><br>

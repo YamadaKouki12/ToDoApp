@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import jp.kobespiral.yamadakouki.todo.dto.MemberForm;
 import jp.kobespiral.yamadakouki.todo.dto.ToDoForm;
 import jp.kobespiral.yamadakouki.todo.entity.Member;
@@ -34,10 +35,11 @@ public class ToDoController {
     @PostMapping("/login")
     String todoLogin(String mid,Model model){
         Member m = mService.getMember(mid);
-        // List<ToDo> list=tService.getToDoList(mid);
-        // model.addAttribute("ToDoList", list);
-        // model.addAttribute("name", m.getName());
-        // model.addAttribute("name","aiueo");
+        /* 
+         * 存在しない場合に例外発生
+         * 例外処理する必要あり
+         */
+
         return "redirect:/member/" + mid + "/todos";
     }
     /**
@@ -51,6 +53,12 @@ public class ToDoController {
         ToDoForm form = new ToDoForm();
         Member m = mService.getMember(mid);
         List<ToDo> list=tService.getToDoList(mid);
+
+        List<ToDo> donelist=tService.getToDoList();
+        List<ToDo> undonelist=tService.getDoneList();
+
+        model.addAttribute("donelist", donelist);
+        model.addAttribute("undonelist", undonelist);
         model.addAttribute("mid", mid);
         model.addAttribute("list", list);
         model.addAttribute("m",m);
@@ -64,8 +72,9 @@ public class ToDoController {
     * @return
     */
    @PostMapping("/member/{mid}/todocheck") 
-   String checkUserToDo(@ModelAttribute(name = "ToDoForm") ToDoForm form,  Model model) {
+   String checkUserToDo(@PathVariable String mid ,@ModelAttribute(name = "ToDoForm") ToDoForm form,  Model model) {
        model.addAttribute("ToDoForm", form);
+       model.addAttribute("mid", mid);
        return "todocheck";
    }
    /**
@@ -90,25 +99,26 @@ public class ToDoController {
     * @return
     */
     @GetMapping("/member/{mid}/makedone") 
-    String makeDone(Model model) {
-        List<ToDo> donelist=tService.getToDoList();
-        List<ToDo> undonelist=tService.getDoneList();
-        model.addAttribute("donelist", donelist);
-        model.addAttribute("undonelist", undonelist);
-        return "list";
+    String makeDone(@PathVariable String mid,@ModelAttribute(name = "ToDoForm") ToDoForm form,Model model) {
+        // List<ToDo> donelist=tService.getToDoList();
+        // List<ToDo> undonelist=tService.getDoneList();
+        // model.addAttribute("donelist", donelist);
+        // model.addAttribute("undonelist", undonelist);
+        // return checkUserToDo(null, null, model);
+        
+        return "redirect:/member/"+mid+"/todos";
     }
 
-    // /**
-    //  * ユーザー用・ToDoを登録 HTTP-POST /member/{mid}/todocheck
-    //  * @param form
-    //  * @param model
-    //  * @return
-    //  */
-    // @PostMapping("/member/{mid}/todocheck")
-    // String todoCheck(@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
-    //     ToDo t = tService.createToDo(form);
-    //     model.addAttribute("ToDoForm",t);
-    //     return "list";
-    // }
+    /**
+     * ユーザー用・ToDoを登録 HTTP-POST /member/{mid}/todocheck
+     * @param form
+     * @param model
+     * @return
+     */
+    @PostMapping("/member/{mid}/todos")
+    String todoCheck(@PathVariable String mid,@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
+        tService.createToDo(mid,form);
+        return "redirect:/member/"+mid+"/todos";
+    }
 
 }

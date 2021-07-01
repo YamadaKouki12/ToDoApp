@@ -8,7 +8,7 @@
 
 <body>
     <h1>ToDo登録確認</h1>
-    <form role="form" th:action="@{/member/{mid}/todos}" th:object="${ToDoForm}" method="post">
+    <form role="form" th:action="@{/member/{m}/todos(m=${mid})}" th:object="${ToDoForm}" method="post">
         <p>
             以下のToDoを登録します
         </p>    

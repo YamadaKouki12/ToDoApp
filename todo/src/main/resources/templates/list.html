@@ -16,11 +16,11 @@
             <th>createdAt</th>
             <th>コマンド</th>
         </tr>
-        <tr th:each="l: ${list}">
+        <tr th:each="l: ${donelist}">
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
-            <td>[[${l.createdAt]]</td>
-            <td><a th:href=@{/member/{m}(m=${m.mid})/makedone}>Done</a></td>
+            <td>[[${l.createdAt}]]</td>
+            <td><a th:href=@{/member/{m}/makedone(m=${m.mid})}>Done</a></td>
         </tr>
     </table>
 
@@ -31,14 +31,14 @@
             <th>title</th>
             <th>donedAt</th>
         </tr>
-        <tr th:each="l: ${list}">
+        <tr th:each="l: ${undonelist}">
             <td>[[${l.seq}]]</td>
             <td>[[${l.title}]]</td>
-            <td>[[${l.doneAt]]</td>
+            <td>[[${l.doneAt}]]</td>
         </tr>
     </table>
     <h2>登録</h2>
-    <form role="form" th:action="@{/member/{mid}/todocheck}" th:object="${ToDoForm}" method="post">
+    <form role="form" th:action="@{/member/{m}/todocheck(m=${mid})}" th:object="${ToDoForm}" method="post">
         <tr>
             <td><label>ToDo:</label></td>
             <td><input type="text" required th:field="*{title}" /></td>
