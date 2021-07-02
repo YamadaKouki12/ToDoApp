@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- bootstrap, <head>の中に以下のcss,jsを入れる -->
+   <link
+     rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous"
+   />
+   <script
+     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+     crossorigin="anonymous"
+   ></script>
+   <script
+     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+     crossorigin="anonymous"
+   ></script>
+   <script
+     src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+     crossorigin="anonymous"
+   ></script>
+    <!-- 手書きcss, <head>の中に以下のcssを入れる -->
+    <link rel="stylesheet" th:href=@{/css/todo_css.css} />
+    <meta charset="UTF-8">
+    <title>ToDoリスト確認</title>
+</head>
+
+<body>
+    <h1>[[${m.name}]]のToDo</h1>
+    <h2>ToDo</h2>
+    <table border="1" class="table">
+        <tr>
+            <th>seq</th>
+            <th>title</th>
+            <th>createdAt</th>
+            <th>コマンド</th>
+        </tr>
+        <tr th:each="tl: ${todolist}">
+            <td>[[${tl.seq}]]</td>
+            <td>[[${tl.title}]]</td>
+            <td>[[${tl.createdAt}]]</td>
+            <td><a th:href=@{/member/{m}/makedone/{s}(m=${mid},s=${tl.seq})}>Done</a></td>
+        </tr>
+    </table>
+
+    <h2>Done</h2>
+    <table border="1" class="table">
+        <tr>
+            <th>seq</th>
+            <th>title</th>
+            <th>donedAt</th>
+        </tr>
+        <tr th:each="dl: ${donelist}">
+            <td>[[${dl.seq}]]</td>
+            <td>[[${dl.title}]]</td>
+            <td>[[${dl.doneAt}]]</td>
+        </tr>
+    </table>
+    <h2>登録</h2>
+    <form role="form" th:action="@{/member/{m}/todocheck(m=${mid})}" th:object="${ToDoForm}" method="post">
+        <tr>
+            <td><label>ToDo:</label></td>
+            <td><input type="text" required th:field="*{title}" /></td>
+        </tr>
+        <input type="submit" class="btn btn-light" value="登録" />
+    </form>
+    <h2>みんなのTODO</h2>
+    <a th:href=@{/member/alllist}>みんなのToDoを確認する</a>
+</body>

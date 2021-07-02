@@ -4,7 +4,7 @@ public class ToDoAppException extends RuntimeException{
    public static final int MEMBER_ALREADY_EXISTS = 102;
    public static final int INVALID_MEMBER_INFO = 103;
    public static final int INVALID_MEMBER_OPERATION = 104;
-   public static final int NO_SUCH_SEQUENCE_EXISTS
+   public static final int NO_SUCH_SEQUENCE_EXISTS = 105;
    public static final int NO_SUCH_TODO_EXISTS = 201;
    public static final int INVALID_TODO_INFO = 202;
    public static final int INVALID_TODO_OPERATION = 203;

@@ -27,41 +27,17 @@
     <!-- 手書きcss, <head>の中に以下のcssを入れる -->
     <link rel="stylesheet" th:href=@{/css/todo_css.css} />
     <meta charset="UTF-8">
-    <title>みんなのToDoリスト確認</title>
+    <title>ログイン画面</title>
 </head>
 
 <body>
-    <h2>ToDo</h2>
-    <table border="1" class="table">
-        <tr>
-            <th>seq</th>
-            <th>title</th>
-            <th>user</th>
-            <th>createdAt</th>
-        </tr>
-        <tr th:each="l: ${todolist}">
-            <td>[[${l.seq}]]</td>
-            <td>[[${l.title}]]</td>
-            <td>[[${l.mid}]]</td>
-            <td>[[${l.createdAt}]]</td>
-        </tr>
-    </table>
-    <br>
-    <h2>Done</h2>
-    <table border="1" class="table">
-        <tr>
-            <th>seq</th>
-            <th>title</th>
-            <th>user</th>
-            <th>donedAt</th>
-        </tr>
-        <tr th:each="l: ${donelist}">
-            <td>[[${l.seq}]]</td>
-            <td>[[${l.title}]]</td>
-            <td>[[${l.mid}]]</td>
-            <td>[[${l.doneAt}]]</td>
-        </tr>
-    </table>
-    <br><br>
-    <input type="button" value="戻る" onclick="history.back()" />
+    <h1>ToDo</h1>
+    <img th:src=@{/img/todo_people.png} >
+    <h2>IDを入れてログイン</h2>
+    <form action="login" method="post">
+        <label for="mid">メンバーID: </label>
+        <input id="mid" type="text" name="mid">
+        <input type="submit" class="btn btn-light" value="ログイン">            
+    </form>
 </body>
+</html>
