@@ -21,7 +21,7 @@ import jp.kobespiral.yamadakouki.todo.service.ToDoService;
 
 
 @Controller
-//@RequestMapping("/member")
+// @RequestMapping("/member")
 public class ToDoController {
     @Autowired
     ToDoService tService;
