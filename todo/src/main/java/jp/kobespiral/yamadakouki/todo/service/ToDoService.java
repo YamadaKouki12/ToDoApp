@@ -45,11 +45,11 @@ public class ToDoService {
             () -> new ToDoAppException(ToDoAppException.NO_SUCH_SEQUENCE_EXISTS, seq + ": No such sequence exists"));
         return t;
     }
-    public ToDo setDone(Long seq){
-        ToDo t = getToDo(seq);
-        t.setDone(true);
-        return t;
-    }
+    // public ToDo setDone(Long seq){
+    //     ToDo t = getToDo(seq);
+    //     t.setDone(true);
+    //     return t;
+    // }
     public void deleteToDo(Long seq){
         ToDo t = getToDo(seq);
         tRepo.delete(t);

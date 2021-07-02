@@ -35,11 +35,6 @@ public class ToDoController {
     @PostMapping("/login")
     String todoLogin(String mid,Model model){
         Member m = mService.getMember(mid);
-        /* 
-         * 存在しない場合に例外発生
-         * 例外処理する必要あり
-         */
-
         return "redirect:/member/" + mid + "/todos";
     }
     /**
